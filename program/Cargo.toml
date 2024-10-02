@@ -1,0 +1,10 @@
+[workspace]
+[package]
+version = "0.1.0"
+name = "sp1-dkim-program"
+edition = "2021"
+
+[dependencies]
+sp1-zkvm = { git = "https://github.com/succinctlabs/sp1.git" }
+cfdkim = { git = "https://github.com/allemanfredi/dkim", default-features = false, features = []  }
+mailparse = "0.14"

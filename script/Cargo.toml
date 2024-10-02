@@ -1,0 +1,13 @@
+[workspace]
+[package]
+version = "0.1.0"
+name = "sp1-dkim-script"
+edition = "2021"
+
+[dependencies]
+cfdkim = { git = "https://github.com/allemanfredi/dkim" }
+mailparse = "0.14"
+serde_json = "1.0.128"
+sp1-sdk = { git = "https://github.com/succinctlabs/sp1.git" }
+tokio = "1.40.0"
+trust-dns-resolver = "0.23.2"
