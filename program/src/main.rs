@@ -15,11 +15,16 @@ pub fn main() {
 
     let email = parse_mail(&raw_email).unwrap();
     let public_key = DkimPublicKey::from_vec_with_type(&public_key_vec, &public_key_type);
+
     let mut hasher = Sha256::new();
     hasher.update(public_key_vec);
     let public_key_hash = hasher.finalize();
 
-    commit(&from_domain);
+    let mut hasher = Sha256::new();
+    hasher.update(from_domain.as_bytes());
+    let from_domain_hash = hasher.finalize();
+
+    commit_slice(&from_domain_hash);
     commit_slice(&public_key_hash);
 
     let result = verify_email_with_public_key(&from_domain, &email, &public_key).unwrap();

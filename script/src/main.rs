@@ -52,7 +52,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         let (pk, vk) = client.setup(ELF);
         let mut proof = client.prove(&pk, stdin).run()?;
 
-        // println!("result: {:?}", proof.public_values.read::<String>());
+        // println!("result: {:?}", proof.public_values.read_slice());
         // println!("result: {:?}", proof.public_values.read_slice());
         // println!("result: {:?}", proof.public_values.read::<bool>());
 
