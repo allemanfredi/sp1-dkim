@@ -902,6 +902,7 @@ version = "0.1.0"
 dependencies = [
  "cfdkim",
  "mailparse",
+ "sha2",
  "sp1-zkvm",
 ]
 

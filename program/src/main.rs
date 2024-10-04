@@ -2,7 +2,8 @@
 
 use cfdkim::{verify_email_with_public_key, DkimPublicKey};
 use mailparse::parse_mail;
-use sp1_zkvm::io::{commit, read, read_vec};
+use sha2::{Digest, Sha256};
+use sp1_zkvm::io::{commit, commit_slice, read, read_vec};
 
 sp1_zkvm::entrypoint!(main);
 
@@ -14,6 +15,12 @@ pub fn main() {
 
     let email = parse_mail(&raw_email).unwrap();
     let public_key = DkimPublicKey::from_vec_with_type(&public_key_vec, &public_key_type);
+    let mut hasher = Sha256::new();
+    hasher.update(public_key_vec);
+    let public_key_hash = hasher.finalize();
+
+    commit(&from_domain);
+    commit_slice(&public_key_hash);
 
     let result = verify_email_with_public_key(&from_domain, &email, &public_key).unwrap();
     if let Some(_) = &result.error() {
